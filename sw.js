@@ -2,39 +2,81 @@
 // //# sourceMappingURL=sw.js.map old
 
 
-// Listen for the install event to cache the app shell
-self.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches.open('my-site-cache-v1').then((cache) => {
-            return cache.addAll([
-                '/',
-                '/index.html',
-                '/script.js',
-                '/style.css',
-                '/themes.json',
-                '/favicon.ico',
-                '/icons/apple-icon-180.png',
-                // Add more files to cache here
-            ]);
-        })
-    );
-});
+if (!self.define) {
+    let e, a = {};
+    const s = (s, i) => (s = new URL(s + ".js", i).href, a[s] || new Promise((a => {
+        if ("document" in self) {
+            const e = document.createElement("script");
+            e.src = s, e.onload = a, document.head.appendChild(e)
+        } else e = s, importScripts(s), a()
+    })).then(() => {
+        let e = a[s];
+        if (!e) throw new Error(`Module ${s} didn’t register its module`);
+        return e
+    }));
+    self.define = (i, p) => {
+        const c = e || ("document" in self ? document.currentScript.src : "") || location.href;
+        if (a[c]) return;
+        let l = {};
+        const n = e => s(e, c), o = {
+            module: { uri: c },
+            exports: l,
+            require: n
+        };
+        a[c] = Promise.all(i.map(e => o[e] || n(e))).then(e => (p(...e), l))
+    }
+}
+define(["./workbox-5c5512d8"], (function (e) {
+    "use strict";
 
-// Listen for the fetch event
-self.addEventListener('fetch', (event) => {
-    // Respond with cached resources if available, else fetch from network
-    event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
+    self.addEventListener("message", (e) => {
+        if (e.data && e.data.type === "SKIP_WAITING") {
+            self.skipWaiting();
+        }
+    });
+
+    e.precacheAndRoute(self.__WB_MANIFEST);
+
+    const cacheName = 'my-site-cache-v1';
+
+    e.registerRoute(
+        ({ request }) => request.destination === 'document',
+        new e.NetworkFirst({
+            cacheName,
+            plugins: [
+                new e.ExpirationPlugin({
+                    maxEntries: 50,
+                }),
+            ],
         })
     );
 
-    // Update cache with new resources from the network
-    event.waitUntil(
-        caches.open('my-site-cache-v1').then((cache) => {
-            return fetch(event.request).then((response) => {
-                return cache.put(event.request, response.clone());
-            });
-        })
-    );
-});
+    self.addEventListener('activate', (event) => {
+        event.waitUntil(
+            caches.keys().then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cache => {
+                        if (cache !== cacheName) {
+                            return caches.delete(cache);
+                        }
+                    })
+                );
+            })
+        );
+    });
+
+    self.addEventListener('install', (event) => {
+        event.waitUntil(self.skipWaiting());
+    });
+    
+    self.addEventListener('fetch', event => {
+        if (event.request.mode === 'navigate') {
+            event.respondWith(
+                caches.match(event.request).then(response => {
+                    return response || fetch(event.request);
+                })
+            );
+        }
+    });
+}));
+//# sourceMappingURL=sw.js.map
