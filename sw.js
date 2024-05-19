@@ -2,81 +2,57 @@
 // //# sourceMappingURL=sw.js.map old
 
 
-if (!self.define) {
-    let e, a = {};
-    const s = (s, i) => (s = new URL(s + ".js", i).href, a[s] || new Promise((a => {
-        if ("document" in self) {
-            const e = document.createElement("script");
-            e.src = s, e.onload = a, document.head.appendChild(e)
-        } else e = s, importScripts(s), a()
-    })).then(() => {
-        let e = a[s];
-        if (!e) throw new Error(`Module ${s} didn’t register its module`);
-        return e
-    }));
-    self.define = (i, p) => {
-        const c = e || ("document" in self ? document.currentScript.src : "") || location.href;
-        if (a[c]) return;
-        let l = {};
-        const n = e => s(e, c), o = {
-            module: { uri: c },
-            exports: l,
-            require: n
-        };
-        a[c] = Promise.all(i.map(e => o[e] || n(e))).then(e => (p(...e), l))
+// sw.js
+// Import Workbox library
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.3.0/workbox-sw.js');
+
+// Check if Workbox is loaded
+if (workbox) {
+  console.log(`Workbox is loaded`);
+
+  // Precache and route with NetworkFirst strategy
+  workbox.routing.registerRoute(
+    ({ request }) => true,
+    new workbox.strategies.NetworkFirst({
+      cacheName: 'dynamic-cache', // Change cache name if needed
+      plugins: [
+        new workbox.cacheableResponse.CacheableResponsePlugin({
+          statuses: [200],
+        }),
+      ],
+    })
+  );
+
+  // Optional: Cache CSS, JSON, and other resources with cache-first strategy
+  workbox.routing.registerRoute(
+    /\.(?:css|json)$/,
+    new workbox.strategies.CacheFirst()
+  );
+
+  // Optional: Fallback to offline page for non-CSS, non-JSON requests
+  workbox.routing.setDefaultHandler(
+    new workbox.strategies.NetworkOnly()
+  );
+
+  // Handle requests for favicon.ico
+  workbox.routing.registerRoute(
+    ({ url }) => url.pathname === '/favicon.ico',
+    new workbox.strategies.NetworkFirst()
+  );
+
+  // Handle requests for manifest icons
+  workbox.routing.registerRoute(
+    ({ url }) => url.pathname.startsWith('/icons/manifest-icon'),
+    new workbox.strategies.NetworkFirst()
+  );
+
+  // Optional: Skip waiting for new service worker to become active
+  self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+      self.skipWaiting();
     }
+  });
+} else {
+  console.log(`Workbox didn't load`);
 }
-define(["./workbox-5c5512d8"], (function (e) {
-    "use strict";
 
-    self.addEventListener("message", (e) => {
-        if (e.data && e.data.type === "SKIP_WAITING") {
-            self.skipWaiting();
-        }
-    });
-
-    e.precacheAndRoute(self.__WB_MANIFEST);
-
-    const cacheName = 'my-site-cache-v1';
-
-    e.registerRoute(
-        ({ request }) => request.destination === 'document',
-        new e.NetworkFirst({
-            cacheName,
-            plugins: [
-                new e.ExpirationPlugin({
-                    maxEntries: 50,
-                }),
-            ],
-        })
-    );
-
-    self.addEventListener('activate', (event) => {
-        event.waitUntil(
-            caches.keys().then(cacheNames => {
-                return Promise.all(
-                    cacheNames.map(cache => {
-                        if (cache !== cacheName) {
-                            return caches.delete(cache);
-                        }
-                    })
-                );
-            })
-        );
-    });
-
-    self.addEventListener('install', (event) => {
-        event.waitUntil(self.skipWaiting());
-    });
-    
-    self.addEventListener('fetch', event => {
-        if (event.request.mode === 'navigate') {
-            event.respondWith(
-                caches.match(event.request).then(response => {
-                    return response || fetch(event.request);
-                })
-            );
-        }
-    });
-}));
-//# sourceMappingURL=sw.js.map
