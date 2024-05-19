@@ -29,54 +29,35 @@ if (!self.define) {
 define(["./workbox-5c5512d8"], (function (e) {
     "use strict";
 
-    self.addEventListener("message", (e) => {
-        if (e.data && e.data.type === "SKIP_WAITING") {
+    self.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'SKIP_WAITING') {
             self.skipWaiting();
         }
     });
 
-    e.precacheAndRoute(self.__WB_MANIFEST);
-
-    const cacheName = 'my-site-cache-v1';
-
-    e.registerRoute(
-        ({ request }) => request.destination === 'document',
-        new e.NetworkFirst({
-            cacheName,
-            plugins: [
-                new e.ExpirationPlugin({
-                    maxEntries: 50,
-                }),
-            ],
-        })
-    );
-
-    self.addEventListener('activate', (event) => {
+    self.addEventListener('install', (event) => {
         event.waitUntil(
-            caches.keys().then(cacheNames => {
-                return Promise.all(
-                    cacheNames.map(cache => {
-                        if (cache !== cacheName) {
-                            return caches.delete(cache);
-                        }
-                    })
-                );
+            caches.open('my-site-cache-v1').then((cache) => {
+                return cache.addAll([
+                    '/',
+                    '/index.html',
+                    '/script.js',
+                    '/style.css',
+                    '/themes.json',
+                    '/favicon.ico',
+                    '/icons/apple-icon-180.png',
+                    // Add more files to cache here
+                ]);
             })
         );
     });
 
-    self.addEventListener('install', (event) => {
-        event.waitUntil(self.skipWaiting());
-    });
-    
-    self.addEventListener('fetch', event => {
-        if (event.request.mode === 'navigate') {
-            event.respondWith(
-                caches.match(event.request).then(response => {
-                    return response || fetch(event.request);
-                })
-            );
-        }
+    self.addEventListener('fetch', (event) => {
+        event.respondWith(
+            caches.match(event.request).then((response) => {
+                return response || fetch(event.request);
+            })
+        );
     });
 }));
-//# sourceMappingURL=sw.js.map
+
