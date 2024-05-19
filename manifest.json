@@ -1,7 +1,7 @@
 {
     "name": "Ocean-Intake",
     "short_name": "O2-Intake",
-    "start_url": "/Ocean-Intake/",
+    "start_url": "/Ocean-Intake/index.html",
     "icons": [
         {
           "src": "icons/manifest-icon-192.maskable.png",
