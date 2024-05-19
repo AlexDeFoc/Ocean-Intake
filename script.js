@@ -104,32 +104,32 @@ theme_icon.addEventListener("click", () => {
 
 
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(registration => {
-            registration.onupdatefound = () => {
-                const installingWorker = registration.installing;
-                installingWorker.onstatechange = () => {
-                    if (installingWorker.state === 'installed') {
-                        if (navigator.serviceWorker.controller) {
-                            // New update available, force the update
-                            console.log('New or updated content is available.');
-                            installingWorker.postMessage({ type: 'SKIP_WAITING' });
-                        } else {
-                            // Content is cached for offline use
-                            console.log('Content is cached for offline use.');
+    navigator.serviceWorker.register('/sw.js').then(registration => {
+        registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                        // New update available
+                        console.log('New or updated content is available.');
+                        // Optional: Prompt user to refresh or force the update
+                        if (confirm('New version available. Refresh to update?')) {
+                            window.location.reload();
                         }
+                    } else {
+                        // Content cached for offline use
+                        console.log('Content is cached for offline use.');
                     }
-                };
+                }
             };
-        }).catch(error => {
-            console.error('Error during service worker registration:', error);
-        });
+        };
+    }).catch(error => {
+        console.error('Error during service worker registration:', error);
+    });
 
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-            console.log('Service worker controller changed');
-            // This fires when the service worker controlling the page changes
-            window.location.reload();
-        });
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('Service worker controller changed');
+        // This fires when the service worker controlling the page changes
+        window.location.reload();
     });
 }
-
