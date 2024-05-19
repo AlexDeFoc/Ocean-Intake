@@ -7,9 +7,6 @@ var amount = 0;
 var factor = 100;
 const units = ["ml", "L"];
 
-document.body.requestFullscreen();
-ocument.querySelector('meta[name="theme-color"]').setAttribute("content", "#ffffff");
-
 if (window.localStorage.getItem('score') != null) {
     amount = JSON.parse(window.localStorage.getItem('score'));
     if (amount < 900) {
@@ -66,6 +63,7 @@ function applyTheme(theme) {
     document.documentElement.style.setProperty("--primary-btn-color", theme["--primary-btn-color"]);
     document.documentElement.style.setProperty("--secondary-btn-color", theme["--secondary-btn-color"]);
     document.documentElement.style.setProperty("--theme-icon-fill", theme["--theme-icon-fill"]);
+    document.getElementById('theme-url').setAttribute("content", theme["--theme-url-color"]);
 }
 
 // Call fetchThemes to load the themes

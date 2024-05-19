@@ -4,7 +4,8 @@
     "--primary-text-color": "white",
     "--primary-btn-color": "#0068A2",
     "--secondary-btn-color": "#E41F12",
-    "--theme-icon-fill": "rgba(255, 255, 255, 1)"
+    "--theme-icon-fill": "rgba(255, 255, 255, 1)",
+    "theme-url-color": "#090909"
 },
 {
     "name": "deep-ocean",
@@ -12,5 +13,6 @@
     "--primary-text-color": "white",
     "--primary-btn-color": "#0D1753",
     "--secondary-btn-color": "#0C164A",
-    "--theme-icon-fill": "rgb(66, 63, 130)"
+    "--theme-icon-fill": "rgb(66, 63, 130)",
+    "theme-url-color": "#01001B"
 }]
