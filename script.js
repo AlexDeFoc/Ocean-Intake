@@ -7,7 +7,8 @@ var amount = 0;
 var factor = 100;
 const units = ["ml", "L"];
 
-document.body.requestFullscreen()
+document.body.requestFullscreen();
+ocument.querySelector('meta[name="theme-color"]').setAttribute("content", "#ffffff");
 
 if (window.localStorage.getItem('score') != null) {
     amount = JSON.parse(window.localStorage.getItem('score'));
