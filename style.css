@@ -94,6 +94,7 @@ body {
 
 .reset {
     font-size: var(--very-small-font-size);
+    display: none;
 }
 
 .reset .shape {
