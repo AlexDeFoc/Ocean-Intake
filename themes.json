@@ -11,6 +11,6 @@
     "--primary-background-color": "#01001B",
     "--primary-text-color": "white",
     "--primary-btn-color": "#0D1753",
-    "--secondary-btn-color": "#080E32",
-    "--theme-icon-fill": "rgba(42, 40, 82, 1)"
+    "--secondary-btn-color": "#0C164A",
+    "--theme-icon-fill": "rgb(66, 63, 130)"
 }]

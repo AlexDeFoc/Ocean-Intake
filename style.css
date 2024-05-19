@@ -68,8 +68,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 58px;
-}
+    margin-bottom: 30px;
+} 
 
 .btn {
     font-family: var(--primary-font-family);
