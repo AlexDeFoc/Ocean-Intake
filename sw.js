@@ -2,62 +2,39 @@
 // //# sourceMappingURL=sw.js.map old
 
 
-if (!self.define) {
-    let e, a = {};
-    const s = (s, i) => (s = new URL(s + ".js", i).href, a[s] || new Promise((a => {
-        if ("document" in self) {
-            const e = document.createElement("script");
-            e.src = s, e.onload = a, document.head.appendChild(e)
-        } else e = s, importScripts(s), a()
-    })).then(() => {
-        let e = a[s];
-        if (!e) throw new Error(`Module ${s} didn’t register its module`);
-        return e
-    }));
-    self.define = (i, p) => {
-        const c = e || ("document" in self ? document.currentScript.src : "") || location.href;
-        if (a[c]) return;
-        let l = {};
-        const n = e => s(e, c), o = {
-            module: { uri: c },
-            exports: l,
-            require: n
-        };
-        a[c] = Promise.all(i.map(e => o[e] || n(e))).then(e => (p(...e), l))
-    }
-}
-define(["./workbox-5c5512d8"], (function (e) {
-    "use strict";
+// Listen for the install event to cache the app shell
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open('my-site-cache-v1').then((cache) => {
+            return cache.addAll([
+                '/',
+                '/index.html',
+                '/script.js',
+                '/style.css',
+                '/themes.json',
+                '/favicon.ico',
+                '/icons/apple-icon-180.png',
+                // Add more files to cache here
+            ]);
+        })
+    );
+});
 
-    self.addEventListener('message', (event) => {
-        if (event.data && event.data.type === 'SKIP_WAITING') {
-            self.skipWaiting();
-        }
-    });
+// Listen for the fetch event
+self.addEventListener('fetch', (event) => {
+    // Respond with cached resources if available, else fetch from network
+    event.respondWith(
+        caches.match(event.request).then((response) => {
+            return response || fetch(event.request);
+        })
+    );
 
-    self.addEventListener('install', (event) => {
-        event.waitUntil(
-            caches.open('my-site-cache-v1').then((cache) => {
-                return cache.addAll([
-                    '/',
-                    '/index.html',
-                    '/script.js',
-                    '/style.css',
-                    '/themes.json',
-                    '/favicon.ico',
-                    '/icons/apple-icon-180.png',
-                    // Add more files to cache here
-                ]);
-            })
-        );
-    });
-
-    self.addEventListener('fetch', (event) => {
-        event.respondWith(
-            caches.match(event.request).then((response) => {
-                return response || fetch(event.request);
-            })
-        );
-    });
-}));
-
+    // Update cache with new resources from the network
+    event.waitUntil(
+        caches.open('my-site-cache-v1').then((cache) => {
+            return fetch(event.request).then((response) => {
+                return cache.put(event.request, response.clone());
+            });
+        })
+    );
+});
