@@ -29,15 +29,42 @@ if (!self.define) {
 define(["./workbox-5c5512d8"], (function (e) {
     "use strict";
 
-    self.addEventListener("message", (e) => {
-        if (e.data && e.data.type === "SKIP_WAITING") {
+    e.setCacheNameDetails({
+        prefix: 'my-site',
+        suffix: 'v1',
+        precache: 'precache',
+        runtime: 'runtime'
+    });
+
+    self.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'SKIP_WAITING') {
             self.skipWaiting();
         }
     });
 
+    self.addEventListener('install', (event) => {
+        event.waitUntil(
+            self.skipWaiting()
+        );
+    });
+
+    self.addEventListener('activate', (event) => {
+        event.waitUntil(
+            caches.keys().then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cache => {
+                        if (cache !== 'my-site-precache-v1' && cache !== 'my-site-runtime-v1') {
+                            return caches.delete(cache);
+                        }
+                    })
+                );
+            }).then(() => self.clients.claim())
+        );
+    });
+
     e.precacheAndRoute(self.__WB_MANIFEST);
 
-    const cacheName = 'my-site-cache-v1';
+    const cacheName = 'my-site-runtime-v1';
 
     e.registerRoute(
         ({ request }) => request.destination === 'document',
@@ -51,24 +78,6 @@ define(["./workbox-5c5512d8"], (function (e) {
         })
     );
 
-    self.addEventListener('activate', (event) => {
-        event.waitUntil(
-            caches.keys().then(cacheNames => {
-                return Promise.all(
-                    cacheNames.map(cache => {
-                        if (cache !== cacheName) {
-                            return caches.delete(cache);
-                        }
-                    })
-                );
-            })
-        );
-    });
-
-    self.addEventListener('install', (event) => {
-        event.waitUntil(self.skipWaiting());
-    });
-    
     self.addEventListener('fetch', event => {
         if (event.request.mode === 'navigate') {
             event.respondWith(
