@@ -53,7 +53,7 @@ body {
     color: var(--primary-text-color);
     font-size: var(--medium-font-size);
     font-weight: var(--semiBold-font-weight);
-    margin-top: 138px;
+    margin-top: 115px;
 }
 
 .score {
@@ -68,7 +68,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* margin-bottom: 30px; */
+    margin-bottom: 30px;
 } 
 
 .btn {
@@ -89,7 +89,7 @@ body {
 }
 
 .add {
-    margin-bottom: 34px;
+    margin-bottom: 24px;
 }
 
 .reset {
