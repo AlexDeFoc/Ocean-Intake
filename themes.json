@@ -13,6 +13,16 @@
     "--primary-text-color": "white",
     "--primary-btn-color": "#0D1753",
     "--secondary-btn-color": "#0C164A",
-    "--theme-icon-fill": "rgb(66, 63, 130)",
+    "--theme-icon-fill": "rgba(66, 63, 130, 1)",
     "theme-url-color": "#01001B"
-}]
+},
+{
+    "name": "funk-town",
+    "--primary-background-color": "#3D1773",
+    "--primary-text-color": "#05F2DB",
+    "--primary-btn-color": "#650BBF",
+    "--secondary-btn-color": "#BF3F61",
+    "--theme-icon-fill": "rgba(242, 212, 155, 1)",
+    "theme-url-color": "#3D1773"
+}
+]
