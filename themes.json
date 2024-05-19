@@ -5,7 +5,8 @@
     "--primary-btn-color": "#0068A2",
     "--secondary-btn-color": "#E41F12",
     "--theme-icon-fill": "rgba(255, 255, 255, 1)",
-    "theme-url-color": "#090909"
+    "theme-url-color": "#090909",
+    "current-theme": true
 },
 {
     "name": "deep-ocean",
@@ -14,7 +15,8 @@
     "--primary-btn-color": "#0D1753",
     "--secondary-btn-color": "#0C164A",
     "--theme-icon-fill": "rgba(66, 63, 130, 1)",
-    "theme-url-color": "#01001B"
+    "theme-url-color": "#01001B",
+    "current-theme": false
 },
 {
     "name": "funk-town",
@@ -23,6 +25,7 @@
     "--primary-btn-color": "#650BBF",
     "--secondary-btn-color": "#BF3F61",
     "--theme-icon-fill": "rgba(242, 212, 155, 1)",
-    "theme-url-color": "#3D1773"
+    "theme-url-color": "#3D1773",
+    "current-theme": false
 }
 ]

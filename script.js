@@ -48,8 +48,16 @@ async function fetchThemes() {
         let response = await fetch('./themes.json');
         theme_result = await response.json();
         if (theme_result.length > 0) {
-            // Apply the first theme initially
-            applyTheme(theme_result[theme_index]);
+            // Check localStorage for the current theme
+            const savedThemes = window.localStorage.getItem('themes');
+            if (savedThemes) {
+                theme_result = JSON.parse(savedThemes);
+            }
+
+            // Find the current theme and apply it
+            const currentTheme = theme_result.find(theme => theme["current-theme"]);
+            theme_index = theme_result.indexOf(currentTheme);
+            applyTheme(currentTheme);
         }
     } catch (error) {
         console.error('Error fetching themes:', error);
@@ -63,7 +71,12 @@ function applyTheme(theme) {
     document.documentElement.style.setProperty("--primary-btn-color", theme["--primary-btn-color"]);
     document.documentElement.style.setProperty("--secondary-btn-color", theme["--secondary-btn-color"]);
     document.documentElement.style.setProperty("--theme-icon-fill", theme["--theme-icon-fill"]);
-    document.getElementById('theme-url').setAttribute("content", theme["--theme-url-color"]);
+    document.getElementById('theme-url').setAttribute("content", theme["theme-url-color"]);
+}
+
+// Function to save themes to localStorage
+function saveThemes() {
+    window.localStorage.setItem('themes', JSON.stringify(theme_result));
 }
 
 // Call fetchThemes to load the themes
@@ -73,9 +86,50 @@ theme_icon.addEventListener("click", () => {
     if (theme_result.length > 0) {
         // Increment the theme_index and wrap around if it exceeds the length of the theme array
         theme_index = (theme_index + 1) % theme_result.length;
+
+        // Set the current-theme property
+        theme_result.forEach((theme, index) => {
+            theme["current-theme"] = (index === theme_index);
+        });
+
         // Apply the next theme
         applyTheme(theme_result[theme_index]);
+
+        // Save the updated themes to localStorage
+        saveThemes();
     } else {
         console.error('No themes available');
     }
 });
+
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(registration => {
+        registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                        // New update available
+                        console.log('New or updated content is available.');
+                        // Optional: Prompt user to refresh or force the update
+                        if (confirm('New version available. Refresh to update?')) {
+                            window.location.reload();
+                        }
+                    } else {
+                        // Content cached for offline use
+                        console.log('Content is cached for offline use.');
+                    }
+                }
+            };
+        };
+    }).catch(error => {
+        console.error('Error during service worker registration:', error);
+    });
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('Service worker controller changed');
+        // This fires when the service worker controlling the page changes
+        window.location.reload();
+    });
+}
