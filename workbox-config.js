@@ -9,3 +9,11 @@ module.exports = {
 		/^fbclid$/
 	]
 };
+
+import {registerRoute} from 'workbox-routing';
+import {NetworkFirst} from 'workbox-strategies';
+
+registerRoute(
+  ({url}) => url.pathname.startsWith('./index.html'),
+  new NetworkFirst()
+);
