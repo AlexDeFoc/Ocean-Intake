@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+    <meta name="theme-color" content="#317EFB"/>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="./favicon.ico">
+    <script>
+        if ('serviceWorker' in navigator){
+            navigator.serviceWorker.register('./sw.js');
+        }
+    </script>
+</head>
+<body>
+    <div class="title">AMOUNT</div>
+    <div class="score">0</div>
+    <div class="btn">
+        <div class="shape"><p class="text">ADD</p></div>
+    </div>
+
+
+    <script src="./script.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

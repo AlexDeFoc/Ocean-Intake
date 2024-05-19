@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+    --primary-font-family: "Chakra Petch";
+
+    --bold-font-weight: 700;
+    --semiBold-font-weight: 600;
+    --regular-font-weight: 400;
+
+    --primary-background-color: #090909;
+    --primary-text-color: white;
+    --primary-btn-color: #0068A2;
+
+    --big-font-size: 96px;
+    --medium-font-size: 64px;
+    --small-font-size: 32px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--primary-background-color);
+    justify-content: center;
+    align-items: center;
+}
+
+
+.title {
+    margin-bottom: auto;
+    font-family: var(--primary-font-family);
+    color: var(--primary-text-color);
+    font-size: var(--medium-font-size);
+    font-weight: var(--semiBold-font-weight);
+    margin-top: 138px;
+}
+
+.score {
+    position: absolute;
+    font-family: var(--primary-font-family);
+    color: var(--primary-text-color);
+    font-size: var(--big-font-size);
+    font-weight: var(--bold-font-weight);
+}
+
+.btn {
+    font-family: var(--primary-font-family);
+    margin-top: auto;
+    color: var(--primary-text-color);
+    font-size: var(--small-font-size);
+    font-weight: var(--regular-font-weight);
+}
+
+.shape {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 156px;
+    height: 66px;
+    background-color: var(--primary-btn-color);
+    border-radius: 30px;
+    margin-bottom: 70px;
+}
