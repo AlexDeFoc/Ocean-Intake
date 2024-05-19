@@ -1,0 +1,16 @@
+[{
+    "name": "black",
+    "--primary-background-color": "#090909",
+    "--primary-text-color": "white",
+    "--primary-btn-color": "#0068A2",
+    "--secondary-btn-color": "#E41F12",
+    "--theme-icon-fill": "rgba(255, 255, 255, 1)"
+},
+{
+    "name": "deep-ocean",
+    "--primary-background-color": "#01001B",
+    "--primary-text-color": "white",
+    "--primary-btn-color": "#0D1753",
+    "--secondary-btn-color": "#080E32",
+    "--theme-icon-fill": "rgba(42, 40, 82, 1)"
+}]

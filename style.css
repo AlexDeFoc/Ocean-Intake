@@ -10,6 +10,9 @@
     --primary-background-color: #090909;
     --primary-text-color: white;
     --primary-btn-color: #0068A2;
+    --secondary-btn-color: #E41F12;
+
+    --theme-icon-fill: rgba(255, 255, 255, 1);
 
     --big-font-size: 96px;
     --medium-font-size: 64px;
@@ -34,6 +37,16 @@ body {
     /* margin: 0 61px 0 61px; */
 }
 
+.theme-icon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    fill: var(--theme-icon-fill);
+    filter: none;
+    top: 0;
+    right: 0;
+    margin: 20px 20px 0 0;
+}
 
 .title {
     font-family: var(--primary-font-family);
@@ -86,5 +99,5 @@ body {
 .reset .shape {
     width: 96px;
     height: 45px;
-    background-color: #E41F12;
+    background-color: var(--secondary-btn-color);
 }
