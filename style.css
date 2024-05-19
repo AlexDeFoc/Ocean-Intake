@@ -14,6 +14,7 @@
     --big-font-size: 96px;
     --medium-font-size: 64px;
     --small-font-size: 32px;
+    --very-small-font-size: 20px;
 }
 
 * {
@@ -23,19 +24,18 @@
 }
 
 body {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
+    display: grid;
+    grid-template-rows: 3 1fr;
     height: 100vh;
     background-color: var(--primary-background-color);
-    justify-content: center;
+    justify-items: center;
     align-items: center;
+    row-gap: 161px;
+    /* margin: 0 61px 0 61px; */
 }
 
 
 .title {
-    margin-bottom: auto;
     font-family: var(--primary-font-family);
     color: var(--primary-text-color);
     font-size: var(--medium-font-size);
@@ -44,16 +44,22 @@ body {
 }
 
 .score {
-    position: absolute;
     font-family: var(--primary-font-family);
     color: var(--primary-text-color);
     font-size: var(--big-font-size);
     font-weight: var(--bold-font-weight);
 }
 
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 58px;
+}
+
 .btn {
     font-family: var(--primary-font-family);
-    margin-top: auto;
     color: var(--primary-text-color);
     font-size: var(--small-font-size);
     font-weight: var(--regular-font-weight);
@@ -67,5 +73,18 @@ body {
     height: 66px;
     background-color: var(--primary-btn-color);
     border-radius: 30px;
-    margin-bottom: 70px;
+}
+
+.add {
+    margin-bottom: 34px;
+}
+
+.reset {
+    font-size: var(--very-small-font-size);
+}
+
+.reset .shape {
+    width: 96px;
+    height: 45px;
+    background-color: #E41F12;
 }
