@@ -102,7 +102,6 @@ theme_icon.addEventListener("click", () => {
     }
 });
 
-
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').then(registration => {
         registration.onupdatefound = () => {
@@ -133,3 +132,26 @@ if ('serviceWorker' in navigator) {
         window.location.reload();
     });
 }
+
+// WebSocket logic
+function connectWebSocket() {
+    if (navigator.onLine) {
+        const socket = new WebSocket('ws://127.0.0.1:5500/index.html/ws');
+        socket.onopen = () => {
+            console.log('WebSocket is connected.');
+        };
+        socket.onclose = () => {
+            console.log('WebSocket is closed.');
+        };
+        socket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+    }
+}
+
+// Try to connect WebSocket only if online
+if (navigator.onLine) {
+    connectWebSocket();
+}
+
+window.addEventListener('online', connectWebSocket);
