@@ -7,6 +7,8 @@ var amount = 0;
 var factor = 100;
 const units = ["ml", "L"];
 
+document.body.requestFullscreen()
+
 if (window.localStorage.getItem('score') != null) {
     amount = JSON.parse(window.localStorage.getItem('score'));
     if (amount < 900) {
