@@ -92,12 +92,33 @@ body {
     margin-bottom: 34px;
 }
 
-.reset {
+.sub {
     font-size: var(--very-small-font-size);
 }
 
-.reset .shape {
+.sub .shape {
     width: 96px;
     height: 45px;
     background-color: var(--secondary-btn-color);
+}
+
+.arrow {
+    width: 40px;
+    height: 40px;
+    /* position: absolute; */
+    fill: var(--primary-text-color);
+    filter: none;
+    /* top: 0;
+    right: 0;
+    margin: 20px 20px 0 0; */
+    /* rotate: 90deg; */
+    transform: rotatex(0.5turn);
+}
+
+.arrow-small {
+    /* width: 50px;
+    height: 50px; */
+    /* rotate: -90deg;
+    margin-top: 5px; */
+    color: red;
 }
