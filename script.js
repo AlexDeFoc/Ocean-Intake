@@ -1,6 +1,7 @@
-let btn = document.getElementsByClassName("btn")[0];
-let btn_reset = document.getElementsByClassName("btn")[1];
 let score = document.getElementsByClassName("score")[0];
+let btn_add = document.getElementsByClassName("btn")[0];
+let btn_sub = document.getElementsByClassName("btn")[1];
+let btn_reset = document.getElementsByClassName("clear-icon")[0];
 let theme_icon = document.getElementsByClassName("theme-icon")[0];
 
 var amount = 0;
@@ -20,8 +21,20 @@ if (window.localStorage.getItem('score') != null) {
     console.log("Fail reload, continue?");
 }
 
-btn.addEventListener("click", () => {
+btn_add.addEventListener("click", () => {
     amount += factor;
+    if (amount < 900) {
+        score.textContent = amount + units[0];
+    } else {
+        score.textContent = amount / 1000 + units[1];
+    }
+    window.localStorage.setItem('score', JSON.stringify(amount));
+});
+
+btn_sub.addEventListener("click", () => {
+    if (amount != 0) {
+        amount -= factor;
+    }
     if (amount < 900) {
         score.textContent = amount + units[0];
     } else {
@@ -33,7 +46,7 @@ btn.addEventListener("click", () => {
 btn_reset.addEventListener("click", () => {
     if (amount != 0) {
         amount = 0;
-        score.textContent = amount;
+        score.textContent = amount + units[0];
         window.localStorage.removeItem("score");
         console.log("Amount reset!");
     }

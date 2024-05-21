@@ -24,6 +24,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
 .theme-icon , .clear-icon {
@@ -80,6 +81,7 @@ h2 {
     color: var(--primary-text-color);
     font-size: var(--medium-font-size);
     font-weight: var(--semiBold-font-weight);
+    text-transform: uppercase;
 }
 
 p {
