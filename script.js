@@ -1,5 +1,5 @@
-let btn = document.getElementsByClassName("shape")[0];
-let btn_reset = document.getElementsByClassName("shape")[1];
+let btn = document.getElementsByClassName("btn")[0];
+let btn_reset = document.getElementsByClassName("btn")[1];
 let score = document.getElementsByClassName("score")[0];
 let theme_icon = document.getElementsByClassName("theme-icon")[0];
 
