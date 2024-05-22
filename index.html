@@ -17,28 +17,28 @@
             })
         }
 
-        // Establish a cache name
-        const cacheName = 'MyFancyCacheName_v1';
+        // // Establish a cache name
+        // const cacheName = 'MyFancyCacheName_v1';
 
-        self.addEventListener('fetch', (event) => {
-            // Check if this is a navigation request
-            if (event.request.mode === 'navigate') {
-                // Open the cache
-                event.respondWith(caches.open(cacheName).then((cache) => {
-                    // Go to the network first
-                    return fetch(event.request.url).then((fetchedResponse) => {
-                        cache.put(event.request, fetchedResponse.clone());
+        // self.addEventListener('fetch', (event) => {
+        //     // Check if this is a navigation request
+        //     if (event.request.mode === 'navigate') {
+        //         // Open the cache
+        //         event.respondWith(caches.open(cacheName).then((cache) => {
+        //             // Go to the network first
+        //             return fetch(event.request.url).then((fetchedResponse) => {
+        //                 cache.put(event.request, fetchedResponse.clone());
 
-                        return fetchedResponse;
-                    }).catch(() => {
-                        // If the network is unavailable, get
-                        return cache.match(event.request.url);
-                    });
-                }));
-            } else {
-                return;
-            }
-        });
+        //                 return fetchedResponse;
+        //             }).catch(() => {
+        //                 // If the network is unavailable, get
+        //                 return cache.match(event.request.url);
+        //             });
+        //         }));
+        //     } else {
+        //         return;
+        //     }
+        // });
     </script>
     
 </head>
@@ -74,7 +74,7 @@
 
     <div class="page-grid">
         <div class="cell"><h2>DEV Branch</h2></div>
-        <div class="cell"><p class="score">1500ml</p></div>
+        <div class="cell"><p class="score">0ml</p></div>
         <div class="cell btn-flex">
             <svg class="btn add" fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	            viewBox="0 0 330.002 330.002" xml:space="preserve">
