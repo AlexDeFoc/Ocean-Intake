@@ -4,8 +4,8 @@ let btn_sub = document.getElementsByClassName("btn")[1];
 let btn_reset = document.getElementsByClassName("clear-icon")[0];
 let theme_icon = document.getElementsByClassName("theme-icon")[0];
 
-var amount = 0;
-var factor = 100;
+let amount = 0;
+let factor = 100;
 const units = ["ml", "L"];
 const storageID = "9fT7wB_";
 
@@ -146,26 +146,3 @@ if ('serviceWorker' in navigator) {
         window.location.reload();
     });
 }
-
-// WebSocket logic
-// function connectWebSocket() {
-//     if (navigator.onLine) {
-//         const socket = new WebSocket('ws://127.0.0.1:5500/index.html/ws');
-//         socket.onopen = () => {
-//             console.log('WebSocket is connected.');
-//         };
-//         socket.onclose = () => {
-//             console.log('WebSocket is closed.');
-//         };
-//         socket.onerror = (error) => {
-//             console.error('WebSocket error:', error);
-//         };
-//     }
-// }
-
-// Try to connect WebSocket only if online
-// if (navigator.onLine) {
-//     connectWebSocket();
-// }
-
-// window.addEventListener('online', connectWebSocket);
