@@ -8,20 +8,16 @@
     <meta id="theme-url" name="theme-color" content="#000000"/>
     <link rel="icon" href="./favicon.ico">
     <link rel="manifest" href="./manifest.json">
-    <script is:inline>
-        addEventListener("load", () => {
-          if ("serviceWorker" in navigator) {
-            navigator.serviceWorker
-              .register("./sw.js")
-              .then(() => {
-                console.log("Service Worker Registered");
-              })
-              .catch((err) => {
-                console.log("Some error occurred while registering service worker");
-                console.log(err);
-              });
-          }
-        });
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./sw.js').then(function(registration) {
+                    console.log('Service Worker Registered with scope:', registration.scope);
+                }).catch(function(error) {
+                    console.log('Service Worker Registration failed:', error);
+                });
+            });
+        }
     </script>
 </head>
 <body> 
