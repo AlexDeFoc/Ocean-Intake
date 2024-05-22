@@ -8,39 +8,21 @@
     <meta id="theme-url" name="theme-color" content="#000000"/>
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="./favicon.ico">
-    
-    <script>
-        //Attempt to register a serviceWorker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js');
-            });
-        }
-
-        // Establish a cache name
-        const cacheName = 'MyFancyCacheName_v1';
-
-        self.addEventListener('fetch', (event) => {
-            // Check if this is a navigation request
-            if (event.request.mode === 'navigate') {
-                // Open the cache
-                event.respondWith(caches.open(cacheName).then((cache) => {
-                    // Go to the network first
-                    return fetch(event.request.url).then((fetchedResponse) => {
-                        cache.put(event.request, fetchedResponse.clone());
-
-                        return fetchedResponse;
-                    }).catch(() => {
-                        // If the network is unavailable, get
-                        return cache.match(event.request.url);
-                    });
-                }));
-            } else {
-                return;
-            }
+    <script is:inline>
+        addEventListener("load", () => {
+          if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+              .register("/sw.js")
+              .then(() => {
+                console.log("Service Worker Registered");
+              })
+              .catch((err) => {
+                console.log("Some error occurred while registering service worker");
+                console.log(err);
+              });
+          }
         });
     </script>
-    
 </head>
 <body> 
     <svg class="theme-icon" fill="#000000" height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
