@@ -1,6 +1,6 @@
 // sw.js
 // Import Workbox library
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-window.prod.mjs');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js');
 
 // Check if Workbox is loaded
 if (workbox) {
@@ -43,7 +43,7 @@ if (workbox) {
 
   // Handle requests for favicon.ico
   workbox.routing.registerRoute(
-    ({ url }) => url.pathname === './favicon.ico',
+    ({ url }) => url.pathname === '/favicon.ico',
     new workbox.strategies.NetworkFirst({
       cacheName: 'favicon-cache',
     })
@@ -51,7 +51,7 @@ if (workbox) {
 
   // Handle requests for manifest icons
   workbox.routing.registerRoute(
-    ({ url }) => url.pathname.startsWith('./icons/manifest-icon'),
+    ({ url }) => url.pathname.startsWith('/icons/manifest-icon'),
     new workbox.strategies.NetworkFirst({
       cacheName: 'manifest-icons-cache',
     })
