@@ -1,21 +1,11 @@
 module.exports = {
     globDirectory: './',
     globPatterns: [
-        '**/*.{ico,png,jpg,svg,html,json,js,css,nojekyll}'
+        '**/*.{png,svg, html,css,js, json,nojekyll}'
     ],
-    swDest: './sw.js',
     ignoreURLParametersMatching: [
         /^utm_/,
         /^fbclid$/
     ],
-    runtimeCaching: [{
-        urlPattern: ({ request }) => request.destination === 'document',
-        handler: 'NetworkFirst',
-        options: {
-            cacheName: 'my-site-cache-v1',
-            expiration: {
-                maxEntries: 50,
-            },
-        },
-    }],
+    swDest: 'sw.js'
 };
