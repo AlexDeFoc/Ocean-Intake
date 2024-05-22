@@ -7,7 +7,7 @@ let theme_icon = document.getElementsByClassName("theme-icon")[0];
 var amount = 0;
 var factor = 100;
 const units = ["ml", "L"];
-const storageID = "9fT7wB";
+const storageID = "9fT7wB_";
 
 if (window.localStorage.getItem(storageID+'score') != null) {
     amount = JSON.parse(window.localStorage.getItem(storageID+'score'));
@@ -148,24 +148,24 @@ if ('serviceWorker' in navigator) {
 }
 
 // WebSocket logic
-function connectWebSocket() {
-    if (navigator.onLine) {
-        const socket = new WebSocket('ws://127.0.0.1:5500/index.html/ws');
-        socket.onopen = () => {
-            console.log('WebSocket is connected.');
-        };
-        socket.onclose = () => {
-            console.log('WebSocket is closed.');
-        };
-        socket.onerror = (error) => {
-            console.error('WebSocket error:', error);
-        };
-    }
-}
+// function connectWebSocket() {
+//     if (navigator.onLine) {
+//         const socket = new WebSocket('ws://127.0.0.1:5500/index.html/ws');
+//         socket.onopen = () => {
+//             console.log('WebSocket is connected.');
+//         };
+//         socket.onclose = () => {
+//             console.log('WebSocket is closed.');
+//         };
+//         socket.onerror = (error) => {
+//             console.error('WebSocket error:', error);
+//         };
+//     }
+// }
 
 // Try to connect WebSocket only if online
-if (navigator.onLine) {
-    connectWebSocket();
-}
+// if (navigator.onLine) {
+//     connectWebSocket();
+// }
 
-window.addEventListener('online', connectWebSocket);
+// window.addEventListener('online', connectWebSocket);
