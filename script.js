@@ -7,9 +7,10 @@ let theme_icon = document.getElementsByClassName("theme-icon")[0];
 var amount = 0;
 var factor = 100;
 const units = ["ml", "L"];
+const storageID = "9fT7wB";
 
-if (window.localStorage.getItem('score') != null) {
-    amount = JSON.parse(window.localStorage.getItem('score'));
+if (window.localStorage.getItem(storageID+'score') != null) {
+    amount = JSON.parse(window.localStorage.getItem(storageID+'score'));
     if (amount < 900) {
         score.textContent = amount + units[0];
         console.log("Success reload ml");
@@ -28,7 +29,7 @@ btn_add.addEventListener("click", () => {
     } else {
         score.textContent = amount / 1000 + units[1];
     }
-    window.localStorage.setItem('score', JSON.stringify(amount));
+    window.localStorage.setItem(storageID+'score', JSON.stringify(amount));
 });
 
 btn_sub.addEventListener("click", () => {
@@ -40,14 +41,14 @@ btn_sub.addEventListener("click", () => {
     } else {
         score.textContent = amount / 1000 + units[1];
     }
-    window.localStorage.setItem('score', JSON.stringify(amount));
+    window.localStorage.setItem(storageID+'score', JSON.stringify(amount));
 });
 
 btn_reset.addEventListener("click", () => {
     if (amount != 0) {
         amount = 0;
         score.textContent = amount + units[0];
-        window.localStorage.removeItem("score");
+        window.localStorage.removeItem(storageID+"score");
         console.log("Amount reset!");
     }
 });
@@ -62,7 +63,7 @@ async function fetchThemes() {
         theme_result = await response.json();
         if (theme_result.length > 0) {
             // Check localStorage for the current theme
-            const savedThemes = window.localStorage.getItem('themes');
+            const savedThemes = window.localStorage.getItem(storageID+'themes');
             if (savedThemes) {
                 theme_result = JSON.parse(savedThemes);
             }
@@ -89,7 +90,7 @@ function applyTheme(theme) {
 
 // Function to save themes to localStorage
 function saveThemes() {
-    window.localStorage.setItem('themes', JSON.stringify(theme_result));
+    window.localStorage.setItem(storageID+'themes', JSON.stringify(theme_result));
 }
 
 // Call fetchThemes to load the themes
