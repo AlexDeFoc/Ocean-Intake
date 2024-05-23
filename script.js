@@ -7,11 +7,11 @@ let theme_icon = document.getElementsByClassName("theme-icon")[0];
 let amount = 0;
 let factor = 100;
 const units = ["ml", "L"];
-const storageID = "9fT7wB_";
+const storageID = "2kN4vY_";
 
 if (window.localStorage.getItem(storageID+'score') != null) {
     amount = JSON.parse(window.localStorage.getItem(storageID+'score'));
-    if (amount < 900) {
+    if (amount < 1000) {
         score.textContent = amount + units[0];
         console.log("Success reload ml");
     } else {
@@ -24,7 +24,7 @@ if (window.localStorage.getItem(storageID+'score') != null) {
 
 btn_add.addEventListener("click", () => {
     amount += factor;
-    if (amount < 900) {
+    if (amount < 1000) {
         score.textContent = amount + units[0];
     } else {
         score.textContent = amount / 1000 + units[1];
