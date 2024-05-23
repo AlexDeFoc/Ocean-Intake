@@ -36,7 +36,7 @@ btn_sub.addEventListener("click", () => {
     if (amount != 0) {
         amount -= factor;
     }
-    if (amount < 900) {
+    if (amount < 1000) {
         score.textContent = amount + units[0];
     } else {
         score.textContent = amount / 1000 + units[1];
