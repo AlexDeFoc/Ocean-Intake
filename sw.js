@@ -39,7 +39,7 @@ if (!self.define) {
       { url: './manifest.json', revision: 'e77f23ca076d593055c6657bdd4ea881' },
       { url: './script.js', revision: '8148dbd7f0a7b69396206dcb62a64cd6' },
       { url: './style.css', revision: 'c52a9b5d7bd0d8814bc14ec6f8373676' },
-      // Add more files here
+      { url: './theme.svg', revision: 'c52a9b5d7be0d8814bc14ec6f8373676' },
     ], { ignoreURLParametersMatching: [/^utm_/, /^fbclid$/] });
   });
   

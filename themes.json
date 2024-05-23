@@ -27,5 +27,35 @@
     "--theme-icon-fill": "rgba(242, 212, 155, 1)",
     "theme-url-color": "#3D1773",
     "current-theme": false
+},
+{
+    "name": "jungle",
+    "--primary-background-color": "#162614",
+    "--primary-text-color": "#f21e0b",
+    "--primary-btn-color": "#5c0b0a",
+    "--secondary-btn-color": "#5c0b0a",
+    "--theme-icon-fill": "rgb(33, 89, 7)",
+    "theme-url-color": "#162614",
+    "current-theme": false
+},
+{
+    "name": "lucid-forest",
+    "--primary-background-color": "#751A38",
+    "--primary-text-color": "#13EBA1",
+    "--primary-btn-color": "#2a0813",
+    "--secondary-btn-color": "#2a0813",
+    "--theme-icon-fill": "rgb(242, 153, 85)",
+    "theme-url-color": "#751A38",
+    "current-theme": false
+},
+{
+    "name": "coffe-addict",
+    "--primary-background-color": "#f2c655",
+    "--primary-text-color": "#75311a",
+    "--primary-btn-color": "#501300",
+    "--secondary-btn-color": "#501300",
+    "--theme-icon-fill": "rgb(242, 98, 85)",
+    "theme-url-color": "#f2c655",
+    "current-theme": false
 }
 ]
